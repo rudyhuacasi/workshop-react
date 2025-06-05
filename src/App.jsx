@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Heading, Stack, Button, Container } from "@chakra-ui/react"
-import { DecorativeBox } from "compositions/lib/decorative-box"
+import { Heading, Stack, Button, Container, Box, Text, Flex, Alert } from "@chakra-ui/react"
 import * as API from "./services/launches";
 import './App.css'
 
@@ -20,9 +19,17 @@ function App() {
       <Heading as="h4" size="5xl">Space X</Heading>
       <ul>
         {launches.map(launch => (
-          <DecorativeBox key={launch.flight_number}>
-            {launch.mission_name} ({launch.launch_year})
-          </DecorativeBox>
+          <Box bg="gray.200" my="6" p="4"  rounded="md" key={launch.flight_number}>
+            <Flex justify="space-between">
+              <Text textStyle="2xl">
+                Missione <strong>{launch.mission_name}</strong> ({launch.launch_year})
+              </Text>
+              <Alert.Root status={launch.launch_success ? "success":"error"} variant="solid" w="28">
+                <Alert.Indicator />
+                <Alert.Title>{launch.launch_success ? "successo":"errore"}</Alert.Title>
+              </Alert.Root>
+            </Flex>
+          </Box>
         ))}
       </ul>
     </Container>
