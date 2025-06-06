@@ -1,6 +1,8 @@
-import { useState, useEffect } from 'react'
-import { Heading, Stack, Button, Container, Box, Text, Flex, Alert } from "@chakra-ui/react"
+import { useState, useEffect } from 'react' 
+import { Heading, Button, Container } from "@chakra-ui/react"
 import * as API from "./services/launches";
+import LaunchItem from './components/LaunchItem';
+import { RiArrowRightLine } from "react-icons/ri"
 import './App.css'
 
 function App() {
@@ -19,19 +21,10 @@ function App() {
       <Heading as="h4" size="5xl">Space X</Heading>
       <ul>
         {launches.map(launch => (
-          <Box bg="gray.200" my="6" p="4"  rounded="md" key={launch.flight_number}>
-            <Flex justify="space-between">
-              <Text textStyle="2xl">
-                Missione <strong>{launch.mission_name}</strong> ({launch.launch_year})
-              </Text>
-              <Alert.Root status={launch.launch_success ? "success":"error"} variant="solid" w="28">
-                <Alert.Indicator />
-                <Alert.Title>{launch.launch_success ? "successo":"errore"}</Alert.Title>
-              </Alert.Root>
-            </Flex>
-          </Box>
+          <LaunchItem key={launch.flight_number} {...launch}/>
         ))}
       </ul>
+      
     </Container>
       
     </>
