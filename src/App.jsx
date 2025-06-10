@@ -1,29 +1,22 @@
-import { useState, useEffect } from 'react' 
-import { Heading, Button, Container } from "@chakra-ui/react"
-import * as API from "./services/launches";
+import React from 'react' 
+import { Heading, Container } from "@chakra-ui/react"
 import LaunchItem from './components/LaunchItem';
-import { RiArrowRightLine } from "react-icons/ri"
+import { Routes, Route  } from "react-router";
 import './App.css'
+import LaunchList from './components/LaunchList';
+import LaunchDetails from './components/LaunchDetails';
 
-function App() {
-  const [launches, setLaunches] = useState([]);
+function App() {  
 
-  useEffect(() => {
-    API.getAllLaunches().then(setLaunches)
-  }, []);
 
   return (
     <>
-    <div style={{ padding: 20 }}>
-      <Button colorScheme="teal">¡Hola Chakra!</Button>
-    </div>
+
     <Container>
-      <Heading as="h4" size="5xl">Space X</Heading>
-      <ul>
-        {launches.map(launch => (
-          <LaunchItem key={launch.flight_number} {...launch}/>
-        ))}
-      </ul>
+      <Routes>
+        <Route  path="/" element={<LaunchList />} />
+        <Route  path="launch/:launchId" element={<LaunchDetails />} />
+      </Routes>
       
     </Container>
       
