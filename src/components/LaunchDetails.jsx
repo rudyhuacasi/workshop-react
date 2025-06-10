@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react' 
 import * as API from "../services/launches";
-import { Box, Text, Flex, Alert, Icon, Button } from "@chakra-ui/react"
-import { FaCalendarAlt, FaArrowAltCircleRight } from "react-icons/fa";
-import { useParams  } from "react-router";
+import { Box, Text, Flex, Alert, Button } from "@chakra-ui/react"
+import { useParams, Link  } from "react-router";
 
 
 function LaunchDetails() {
@@ -18,6 +17,9 @@ function LaunchDetails() {
   return (
     <>
     {/* scatola per i dettagli che c'è in ogni missione di space x */}
+    {!launch ?( 
+        <div>loading ...</div>
+    ): (
         <Box bg="gray.200" my="6" p="4"  rounded="md" key={launch.flight_number}>
           <Flex justify="space-between">
             <Text textStyle="2xl">
@@ -28,7 +30,13 @@ function LaunchDetails() {
               <Alert.Title>{launch.launch_success ? "successo":"errore"}</Alert.Title>
             </Alert.Root>
           </Flex>
+            <Link to={`/rocket/${launch.rocket?.rocket_name}/${launch.rocket?.rocket_id}`}>
+                <Button colorPalette="cyan" variant="solid" mt="4" size="lg">
+                    {launch.rocket?.rocket_name}
+                </Button>
+            </Link>
         </Box>
+    )}
     </>
   )
 }
